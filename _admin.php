@@ -21,10 +21,9 @@ if (isset($_POST['submit'])) {
      	$email = "namedroppertest" . $i . "@mailinator.com";
     	$prospects = [$email, $firstname, $lastname];
     	array_push($users_data, $prospects);
-    	
+    	$users->write($users_data);
     	$prospects = [];
  	}
- 		$users->write($users_data);
  		// Log user input for number of leads to create and save to file data.txt
  		$data = fopen(dirname(__FILE__) . '/data.txt', 'a+');
         $newString = $number . "\n";
@@ -53,5 +52,24 @@ if (isset($_POST['download'])) {
 	        <button type="submit" name="download">Download</button>
 	    </p>
 	    </form>
+        <table>
+        	<thead>
+        		<th>Email</th>
+        		<th>First Name</th>
+        		<th>Last Name</th>
+        	</thead>
+        	<tbody>
+	            <?php foreach ($users_data as $key => $rows) {
+	            	echo "<tr>";
+	            	foreach ($rows as $row) {
+	            		echo "<td>";
+	            		echo $row;
+	            		echo "</td>";
+	            	}
+	            	echo "</tr>";
+	            } ?>
+	                
+            </tbody>   
+        </table>
 	</body>
 </html>
